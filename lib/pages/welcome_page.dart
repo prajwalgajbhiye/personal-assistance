@@ -11,7 +11,6 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-
   const MyApp({super.key});
 
   @override
@@ -29,10 +28,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       title: 'Chatbot Setup',
-      home: WelcomeScreen( name: userName,
-        onUpdateName: updateUserName,),
+      home: WelcomeScreen(
+        name: userName,
+        onUpdateName: updateUserName,
+      ),
     );
   }
 }
@@ -88,14 +89,14 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       if (_isEditing) {
         setState(() {
           _isEditing = false;
-          _isNameSaved = true;  // Enable "Let's Go" if text matches saved name
+          _isNameSaved = true; // Enable "Let's Go" if text matches saved name
         });
       }
     } else {
       if (!_isEditing) {
         setState(() {
           _isEditing = true;
-          _isNameSaved = false;  // Disable "Let's Go" button
+          _isNameSaved = false; // Disable "Let's Go" button
         });
       }
     }
@@ -163,7 +164,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     } else {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('name', _controller.text);
-      widget.onUpdateName(_controller.text); // Update the name in the parent state
+      widget.onUpdateName(
+          _controller.text); // Update the name in the parent state
       showCustomSnackBar(context, 'Name saved: ${_controller.text}',
           [Colors.white, Colors.pinkAccent], Colors.grey.shade900);
 

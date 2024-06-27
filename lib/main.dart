@@ -14,9 +14,16 @@ void main() async {
   );
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool isFirstRun = prefs.getBool('firstRun') ?? true;  // Default to true if no value set
+  bool isFirstRun =
+      prefs.getBool('firstRun') ?? true; // Default to true if no value set
 
-  Widget home = isFirstRun ?  WelcomeScreen(onUpdateName: (String ) {  },) :  const HomePage(name: '',);
+  Widget home = isFirstRun
+      ? WelcomeScreen(
+          onUpdateName: (String) {},
+        )
+      : const HomePage(
+          name: '',
+        );
 
   if (isFirstRun) {
     // If it's the first run, set it to false for future app launches
@@ -28,6 +35,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final Widget home;
+
   const MyApp({super.key, required this.home});
 
   @override

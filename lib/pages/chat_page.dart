@@ -24,13 +24,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home:  const HomePage(name: '',),
+      home: const HomePage(
+        name: '',
+      ),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
   final String name;
+
   const HomePage({super.key, required this.name});
 
   @override
@@ -46,7 +49,6 @@ class _HomePageState extends State<HomePage> {
   final ImagePicker _picker = ImagePicker();
   DateTime? lastTimeBackButtonWasPressed;
 
-
   List<ChatMessage> messages = [];
   bool isTyping = false;
 
@@ -57,14 +59,11 @@ class _HomePageState extends State<HomePage> {
     profileImage: "images/cuteimg.png",
   );
 
-
   @override
   void initState() {
     super.initState();
     _loadUserName();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -103,8 +102,8 @@ class _HomePageState extends State<HomePage> {
 
                     return GestureDetector(
                       onDoubleTap: () {
-                        Clipboard.setData(ClipboardData(text: message.text)).then(
-                            (_) => ScaffoldMessenger.of(context)
+                        Clipboard.setData(ClipboardData(text: message.text))
+                            .then((_) => ScaffoldMessenger.of(context)
                                     .showSnackBar(SnackBar(
                                   content: Container(
                                     height: 40,
@@ -151,13 +150,15 @@ class _HomePageState extends State<HomePage> {
                       child: ListTile(
                           leading: CircleAvatar(
                             backgroundImage: AssetImage(
-                                message.user.profileImage ?? 'images/no-dp.jpg'),
+                                message.user.profileImage ??
+                                    'images/no-dp.jpg'),
                           ),
                           title: Text(
                             message.user.firstName,
                             style: TextStyle(
-                                color:
-                                    isCurrentUser ? Colors.white : Colors.white),
+                                color: isCurrentUser
+                                    ? Colors.white
+                                    : Colors.white),
                           ),
                           subtitle: Container(
                               decoration: BoxDecoration(
@@ -241,21 +242,19 @@ class _HomePageState extends State<HomePage> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => WelcomeScreen(
-                        onUpdateName: (String name) {
+                    builder: (context) =>
+                        WelcomeScreen(onUpdateName: (String name) {
                           // This might just log the name or do nothing if not needed
                           print("Name updated to: $name");
-                        }
-                    )
-                )
-            );
+                        })));
           },
         ),
         PopupMenuItem(
           value: 'Recognition',
           child: const Text('Recognition'),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeScreen2()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomeScreen2()));
           },
         ),
       ],
@@ -272,7 +271,8 @@ class _HomePageState extends State<HomePage> {
   Future<bool> _onWillPop() async {
     final now = DateTime.now();
     if (lastTimeBackButtonWasPressed == null ||
-        now.difference(lastTimeBackButtonWasPressed!) > const Duration(seconds: 2)) {
+        now.difference(lastTimeBackButtonWasPressed!) >
+            const Duration(seconds: 2)) {
       // Update the last time back button was pressed
       lastTimeBackButtonWasPressed = now;
 
@@ -316,7 +316,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
   Widget _buildTypingIndicator() {
     return const Padding(
       padding: EdgeInsets.all(8.0),
@@ -333,7 +332,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 
   void _handleSendMessage(String text) {
     if (text.isNotEmpty) {
@@ -430,7 +428,9 @@ class _HomePageState extends State<HomePage> {
     if (savedName != null) {
       setState(() {
         userName = savedName;
-        currentUser = ChatUser(id: "0", firstName: savedName); // Update currentUser with the loaded name
+        currentUser = ChatUser(
+            id: "0",
+            firstName: savedName); // Update currentUser with the loaded name
       });
     }
   }

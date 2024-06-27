@@ -29,7 +29,8 @@ class _HomeScreenState extends State<HomeScreen2> {
       if (cameras.isNotEmpty) {
         controller = CameraController(cameras[0], ResolutionPreset.medium);
         _initializeControllerFuture = controller!.initialize().then((_) {
-          setState(() {}); // This triggers a rebuild once the camera is initialized
+          setState(
+              () {}); // This triggers a rebuild once the camera is initialized
         });
       } else {
         print('No cameras available on the device');
@@ -48,19 +49,19 @@ class _HomeScreenState extends State<HomeScreen2> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<void>(
-      future: _initializeControllerFuture,
+        future: _initializeControllerFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return buildCameraScreen(context);
           } else if (snapshot.hasError) {
             print('Camera initialization error: ${snapshot.error}');
-            return Center(child: Text('Error initializing camera: ${snapshot.error}'));
+            return Center(
+                child: Text('Error initializing camera: ${snapshot.error}'));
           } else {
             print('Waiting for camera to initialize...');
             return const Center(child: CircularProgressIndicator());
           }
-        }
-    );
+        });
   }
 
   Widget buildCameraScreen(BuildContext context) {
@@ -70,8 +71,9 @@ class _HomeScreenState extends State<HomeScreen2> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(height: 40,),
-            // buildActionRow(),
+            SizedBox(
+              height: 40,
+            ),
             if (controller != null) buildCameraPreview(),
             buildBottomRow(context),
           ],
@@ -80,58 +82,13 @@ class _HomeScreenState extends State<HomeScreen2> {
     );
   }
 
-  // Widget buildActionRow() {
-  //   return const Padding(
-  //     padding: EdgeInsets.only(top: 15),
-  //     child: Card(
-  //       color: Colors.blueAccent,
-  //       child: SizedBox(
-  //         height: 10,
-  //         // child: Row(
-  //         //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //         //   children: [
-  //         //     Column(
-  //         //       mainAxisAlignment: MainAxisAlignment.center,
-  //         //       children: [
-  //         //         Icon(Icons.adf_scanner_sharp, size: 30, color: Colors.white),
-  //         //         Text(
-  //         //           'Scan',
-  //         //           style: TextStyle(color: Colors.white),
-  //         //         )
-  //         //       ],
-  //         //     ),
-  //         //     Column(
-  //         //       mainAxisAlignment: MainAxisAlignment.center,
-  //         //       children: [
-  //         //         Icon(Icons.document_scanner, size: 30, color: Colors.white),
-  //         //         Text(
-  //         //           'Recognize',
-  //         //           style: TextStyle(color: Colors.white),
-  //         //         )
-  //         //       ],
-  //         //     ),
-  //         //     Column(
-  //         //       mainAxisAlignment: MainAxisAlignment.center,
-  //         //       children: [
-  //         //         Icon(Icons.assignment, size: 30, color: Colors.white),
-  //         //         Text(
-  //         //           'Enhanced',
-  //         //           style: TextStyle(color: Colors.white),
-  //         //         )
-  //         //       ],
-  //         //     ),
-  //         //   ],
-  //         // ),
-  //       ),
-  //     ),
-  //   );
-  // }
+
 
   Widget buildCameraPreview() {
     return Card(
       color: Colors.black,
       child: SizedBox(
-        height: MediaQuery.of(context).size.height -300,
+        height: MediaQuery.of(context).size.height - 300,
         child: CameraPreview(controller!),
       ),
     );
@@ -156,9 +113,13 @@ class _HomeScreenState extends State<HomeScreen2> {
                         File imageFile = File(xfile.path);
 
                         // Optionally, navigate to another screen with the image
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => RecognizerScreen( image: imageFile,),
-                        ));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RecognizerScreen(
+                                image: imageFile,
+                              ),
+                            ));
                       }
                     } catch (e) {
                       // If an error occurs, log the error to the console.
@@ -180,9 +141,12 @@ class _HomeScreenState extends State<HomeScreen2> {
         final xfile = await imagePicker.pickImage(source: ImageSource.gallery);
         if (xfile != null) {
           final image = File(xfile.path);
-          Navigator.push(context, MaterialPageRoute(
-              builder: (context) => RecognizerScreen( image: image,)
-          ));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => RecognizerScreen(
+                        image: image,
+                      )));
         }
       },
       child: const Column(
@@ -193,5 +157,4 @@ class _HomeScreenState extends State<HomeScreen2> {
       ),
     );
   }
-
 }
