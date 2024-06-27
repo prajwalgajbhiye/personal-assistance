@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gemini_chat_bot/custom_class.dart';
-import 'package:gemini_chat_bot/pages/home_page.dart';
+
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 

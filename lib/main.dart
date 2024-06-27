@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:gemini_chat_bot/pages/chat_page.dart';
 import 'package:gemini_chat_bot/pages/welcome_page.dart';
-import 'package:gemini_chat_bot/pages/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'consts.dart';
