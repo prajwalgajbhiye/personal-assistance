@@ -436,16 +436,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _sendMediaMessage() async {
-    XFile? file = await _picker.pickImage(source: ImageSource.gallery);
+    ImagePicker picker = ImagePicker();
+    XFile? file = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
     if (file != null) {
       ChatMessage chatMessage = ChatMessage(
         user: currentUser,
         createdAt: DateTime.now(),
-        text: "Sent an image.",
+        text: "Describe this picture?",
         medias: [
           ChatMedia(
             url: file.path,
-            fileName: file.name,
+            fileName: "",
             type: MediaType.image,
           )
         ],
